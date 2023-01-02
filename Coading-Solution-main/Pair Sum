@@ -1,0 +1,67 @@
+
+#include <bits/stdc++.h> 
+int main()
+{
+    int n, target;
+    cin>>n>>target;
+	
+    vector<int, int>arr(n, 0);
+	
+    for(int i = 0 ; i < n ; i++)
+    {
+        cin>>arr[i];
+    }
+	
+    cout<<pairSum(arr, n, target)<<"\n";
+    return 0;
+}
+                                           
+                                                         Method - 1
+                                           
+Time Complexity - O(n)
+Space Complexity - O(n)
+
+int pairSum(vector<int> &arr, int n, int target){
+	// Write your code here.
+    map<int, int>mp;
+    int count = 0;
+    for(auto e : arr) mp[e]++;
+    for(int i = 0 ; i < n ; i++)
+    {
+        if(mp[target-arr[i]] > 0 && target-arr[i] != arr[i])
+        {  
+            count++;
+            mp[target-arr[i]]--;
+            mp[arr[i]]--;
+        }
+      }
+    if(count == 0) return -1;
+    return count;
+}
+
+
+                                                          Method - 2
+                                                          
+Time Complexity - O(n)
+Space Comlexity - O(1)
+
+int pairSum(vector<int> &arr, int n, int target){
+	// Write your code here.
+    int s = 0, e = n - 1, count = 0;
+    while(s < e)
+    {
+        if(arr[s] + arr[e] == target)
+        {
+            count++;
+            s++;
+            e--;
+        }
+        else if( arr[s] + arr[e] > target)
+               e--;
+        else
+            s++;
+     }
+    if(count == 0) return -1;
+    return count;
+}
+

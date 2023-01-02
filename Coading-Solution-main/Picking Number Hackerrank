@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+int pickingNumbers(vector<ll> a)
+{    
+   map<ll, ll>mp;
+   for(auto e : a) mp[e]++;
+   ll prev = 0, prevcount = 0, ans = 0;
+   for(auto e : mp)
+   {
+       if(abs(prev - e.first)<=1)
+            ans = max(ans , e.second + prevcount);
+        else {
+             ans = max(ans, e.second);
+        }
+        prev = e.first;
+        prevcount = e.second;
+   }
+   return ans;
+}
+
+int main()
+{
+  ll N;
+  cin>>N;
+  vector<ll>a(N, 0);
+  
+    for(ll i = 0 ; i < N ; i++)
+    cin>>a[i];
+  
+  cout<<pickingNumbers(a)<<endl;
+   
+}
